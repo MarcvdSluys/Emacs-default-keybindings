@@ -17,11 +17,13 @@ echo "5. $ ./emacs-sort-keybindings.sh  # Run emacs-sort-keybindings.sh to produ
 
 
 echo -e "\n* Ctrl" >> $OUTFILE
-grep -E '^C-' $INFILE | grep -vE '^C-h|^C-x' | LC_ALL=C sort  >> $OUTFILE
+grep -E '^C-' $INFILE | grep -vE '^C-h|^C-x|^C-M-' | LC_ALL=C sort  >> $OUTFILE
 echo -e "\n** C-h: help" >> $OUTFILE
 grep -E '^C-h' $INFILE | LC_ALL=C sort  >> $OUTFILE
 echo -e "\n** C-x" >> $OUTFILE
 grep -E '^C-x' $INFILE | LC_ALL=C sort  >> $OUTFILE
+echo -e "\n** C-M" >> $OUTFILE
+grep -E '^C-M-' $INFILE | LC_ALL=C sort  >> $OUTFILE
 
 echo -e "\n* Meta" >> $OUTFILE
 grep -E '^M-' $INFILE | LC_ALL=C sort  >> $OUTFILE
