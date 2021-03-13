@@ -11,9 +11,8 @@ echo "Steps to produce this list:" >> $OUTFILE
 echo "1. $ emacs -q &  # Start emacs without ini file" >> $OUTFILE
 echo "2. C-h b  ;; Show all keybindings" >> $OUTFILE
 echo "3. C-x o  ;; Jump to other window" >> $OUTFILE
-echo "4. C-x C-w emacs-default-keybindings-sorted.txt  ;; Write buffer to emacs-default-keybindings-sorted.txt" >> $OUTFILE
-echo "5. $ ./emacs-sort-keybindings.sh  # Run emacs-sort-keybindings.sh to produce emacs-default-keybindings-sorted.txt" >> $OUTFILE
-echo >> $OUTFILE
+echo "4. C-x C-w $INFILE  ;; Write buffer to $INFILE" >> $OUTFILE
+echo "5. $ ./emacs-sort-keybindings.sh  # Run emacs-sort-keybindings.sh to produce $OUTFILE" >> $OUTFILE
 
 
 
@@ -60,3 +59,13 @@ echo -e "\n* Other" >> $OUTFILE
 grep -vE '^C-|^M-|^$|^ |^A-|^s-|kp-|mouse-|dead-|mute-|^<help>|^<f[0-9]|^<remap>|key             binding|^`|:$|\-------|' $INFILE | LC_ALL=C sort  >> $OUTFILE
 
 echo >> $OUTFILE
+
+
+# Add bullet points (+) to all bare items for better readability on GitHub:
+sed -i \
+    -e 's|^.*$|+ &|' \
+    -e 's|^+ \*|\*|' \
+    -e 's|^+ \([0-9]\)|  \1|' \
+    -e 's|^+ $||' \
+    $OUTFILE
+
